@@ -50,6 +50,7 @@ uniform float u_glitchY;
 
 uniform float u_waveX;
 uniform float u_waveY;
+uniform float u_waveSize;
 
 uniform float u_time;
 
@@ -72,9 +73,12 @@ void main() {
   float wX = u_waveX / 40.0;
   float wY = u_waveY / 40.0;
 
-  // === SUPER WAVE ===
-  uv.x += sin(uv.y * 14.0 + u_time * 0.2) * 0.18 * wX;
-  uv.y += sin(uv.x * 14.0 + u_time * 0.2) * 0.18 * wY;
+  // === SUPER WAVE (SIZE CONTROL) ===
+float waveFreq = mix(4.0, 40.0, u_waveSize / 100.0);
+
+uv.x += sin(uv.y * waveFreq + u_time * 0.2) * 0.18 * wX;
+uv.y += sin(uv.x * waveFreq + u_time * 0.2) * 0.18 * wY;
+
 
   // === HARD GLITCH XY ===
   float gx = floor(uv.y * 50.0);
@@ -139,6 +143,7 @@ void main() {
     u_glitch:0, u_glow:0, u_outline:0, u_neon:0, u_rgbsplit:0,
     u_glitchX:0, u_glitchY:0,
     u_waveX:0, u_waveY:0,
+    u_waveSize:50,
     u_time:0
   };
 
@@ -189,6 +194,7 @@ void main() {
             {text:"glitch y", value:"u_glitchY"},
             {text:"wave x", value:"u_waveX"},
             {text:"wave y", value:"u_waveY"},
+            {text:"wave size", value:"u_waveSize"},
             {text:"rgb split", value:"u_rgbsplit"},
             {text:"glow", value:"u_glow"},
             {text:"neon", value:"u_neon"},

@@ -1,14 +1,14 @@
 (function (Scratch) {
   "use strict";
 
-  alert(
+  // === BROWSER WARNING ===
+   alert(
   "⚠️ WARNING!\n\n" +
   "This extension OVERRIDES Scratch/TurboWarp Looks effects.\n" +
   "Color, fisheye, whirl, pixelate, mosaic, ghost, brightness may BREAK.\n\n" +
   "You can turn custom effects OFF to use Looks normally.\n\n" +
   "Use at your own risk!"
 );
-
 
   const vm = Scratch.vm;
   const runtime = vm.runtime;
@@ -73,12 +73,11 @@ void main() {
   float wX = u_waveX / 40.0;
   float wY = u_waveY / 40.0;
 
-  // === SUPER WAVE (SIZE CONTROL) ===
-float waveFreq = mix(4.0, 40.0, u_waveSize / 100.0);
+  float waveFreq = mix(4.0, 40.0, u_waveSize / 100.0);
 
-uv.x += sin(uv.y * waveFreq + u_time * 0.2) * 0.18 * wX;
-uv.y += sin(uv.x * waveFreq + u_time * 0.2) * 0.18 * wY;
-
+  // === SUPER WAVE STRONG ===
+  uv.x += sin(uv.y * waveFreq + u_time * 0.2) * 0.28 * wX;
+  uv.y += sin(uv.x * waveFreq + u_time * 0.2) * 0.28 * wY;
 
   // === HARD GLITCH XY ===
   float gx = floor(uv.y * 50.0);
@@ -95,9 +94,9 @@ uv.y += sin(uv.x * waveFreq + u_time * 0.2) * 0.18 * wY;
 
   // === RGB SPLIT MAX ===
   float s = (glitch + rgbs) * 0.14;
-  float r = texture2D(u_skin, uv + vec2(s,0)).r;
-  float b = texture2D(u_skin, uv - vec2(s,0)).b;
-  base.rgb = vec3(r, base.g, b);
+  float rC = texture2D(u_skin, uv + vec2(s,0)).r;
+  float bC = texture2D(u_skin, uv - vec2(s,0)).b;
+  base.rgb = vec3(rC, base.g, bC);
 
   float px = 1.0 / u_skinSize.x;
   float py = 1.0 / u_skinSize.y;
@@ -142,8 +141,7 @@ uv.y += sin(uv.x * waveFreq + u_time * 0.2) * 0.18 * wY;
   const DEFAULTS = {
     u_glitch:0, u_glow:0, u_outline:0, u_neon:0, u_rgbsplit:0,
     u_glitchX:0, u_glitchY:0,
-    u_waveX:0, u_waveY:0,
-    u_waveSize:50,
+    u_waveX:0, u_waveY:0, u_waveSize:50,
     u_time:0
   };
 
@@ -167,9 +165,8 @@ uv.y += sin(uv.x * waveFreq + u_time * 0.2) * 0.18 * wY;
 
     getInfo() {
       return {
-        id: "filterEffects",
-        name: "Filter effects",
-        description: "I use this extension to make animations and games",
+        id: "ExtraEffects",
+        name: "Extra effects",
         color1: "#a200ff",
         blocks: [
           { opcode:"setFx", blockType:Scratch.BlockType.COMMAND,

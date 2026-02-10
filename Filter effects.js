@@ -1,7 +1,6 @@
 (function (Scratch) {
   "use strict";
 
-  // === BROWSER WARNING ===
    alert(
   "⚠️ WARNING!\n\n" +
   "This extension OVERRIDES Scratch/TurboWarp Looks effects.\n" +
@@ -181,7 +180,7 @@ void main() {
           { opcode:"clearFx", blockType:Scratch.BlockType.COMMAND,
             text:"clear extra effects" },
           { opcode:"setHybrid", blockType:Scratch.BlockType.COMMAND,
-            text:"use custom shader [onoff]",
+            text:"use extras effects [onoff]",
             arguments:{ onoff:{menu:"onoff"} } }
         ],
         menus:{

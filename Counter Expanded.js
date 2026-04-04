@@ -10,7 +10,8 @@
     }
 
     class CounterExpanded {
-        constructor() {
+        constructor(runtime) {
+            this.runtime = runtime;
             this.value = 0;
             this.minLimit = -Infinity;
             this.maxLimit = Infinity;

@@ -23,14 +23,11 @@
                 color3: "#2e2e2e",
 
                 blocks: [
-                    
                     {
                         opcode: 'Counter',
                         blockType: Scratch.BlockType.REPORTER,
                         text: 'Counter'
                     },
-
-                    
                     {
                         opcode: 'SetCounter',
                         blockType: Scratch.BlockType.COMMAND,
@@ -42,8 +39,6 @@
                             }
                         }
                     },
-
-                    
                     {
                         opcode: 'ChangeCounter',
                         blockType: Scratch.BlockType.COMMAND,
@@ -55,15 +50,11 @@
                             }
                         }
                     },
-
-                    
                     {
                         opcode: 'ClearValue',
                         blockType: Scratch.BlockType.COMMAND,
                         text: 'clear counter value'
                     },
-
-                    
                     {
                         blockType: Scratch.BlockType.HAT,
                         opcode: 'CounterEvent',
@@ -79,8 +70,6 @@
                             }
                         }
                     },
-
-                    
                     {
                         opcode: 'setMin',
                         blockType: Scratch.BlockType.COMMAND,
@@ -92,8 +81,6 @@
                             }
                         }
                     },
-
-                    
                     {
                         opcode: 'setMax',
                         blockType: Scratch.BlockType.COMMAND,
@@ -105,7 +92,6 @@
                             }
                         }
                     },
-                    
                     {
                         opcode: 'DecreaseCounter',
                         blockType: Scratch.BlockType.COMMAND,
@@ -117,7 +103,6 @@
                             }
                         }
                     },
-
                     {
                         opcode: 'autoIncrease',
                         blockType: Scratch.BlockType.COMMAND,
@@ -127,19 +112,16 @@
                             amount: { type: Scratch.ArgumentType.NUMBER, defaultValue: 1 }
                         }
                     },
-                    
                     {
                         opcode: 'StopAuto',
                         blockType: Scratch.BlockType.COMMAND,
                         text: 'stop auto increase'
                     },
-                    
                     {
                         opcode: 'ResetLimit',
                         blockType: Scratch.BlockType.COMMAND,
                         text: 'reset all limit'
                     }
-
                 ],
 
                 menus: {
@@ -149,8 +131,6 @@
                 }
             };
         }
-
-        
 
         Counter() {
             return this.value;
@@ -192,17 +172,16 @@
         }
         
         DecreaseCounter({ amount }) {
-        this.value = this.limit(this.value - Number(amount));
+            this.value = this.limit(this.value - Number(amount));
         }
         
         async autoIncrease({ sec, amount }) {
-        this.autoRunning = true;
+            this.autoRunning = true;
 
-        while (this.autoRunning) {
-        await new Promise(resolve => setTimeout(resolve, sec * 1000));
-
-        this.value = this.limit(this.value + Number(amount));
-           }
+            while (this.autoRunning) {
+                await new Promise(resolve => setTimeout(resolve, sec * 1000));
+                this.value = this.limit(this.value + Number(amount));
+            }
         }
         
         StopAuto() {
